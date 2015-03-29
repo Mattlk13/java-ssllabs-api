@@ -7,10 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
 
+/**
+ * Java-SSLLabs-API
+ * 
+ * This Java library provides basic access to the SSL Labs API
+ * and is build upon the official API documentation at
+ * https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md
+ * 
+ * @author Björn Roland <https://github.com/bjoernr-de>
+ * @license GNU GENERAL PUBLIC LICENSE v3
+ */
 public class Api
 {
 	private static final String API_URL = "https://api.ssllabs.com/api/v2";
 	
+	/**
+	 * Fetch API information
+	 * API Call: info
+	 * 
+	 * @return	JSONObject
+	 */
 	public JSONObject fetchApiInfo()
 	{
 		String jsonString;
@@ -26,6 +42,19 @@ public class Api
 		return (json);
 	}
 	
+	/**
+	 * Fetch host information
+	 * API Call: analyze
+	 * 
+	 * @param	host
+	 * @param	publish
+	 * @param	startNew
+	 * @param	fromCache
+	 * @param	maxAge
+	 * @param	all
+	 * @param	ignoreMismatch
+	 * @return	JSONObject
+	 */
 	public JSONObject fetchHostInformation(String host, boolean publish, boolean startNew, boolean fromCache, String maxAge, String all, boolean ignoreMismatch)
 	{
 		String jsonString;
@@ -51,11 +80,31 @@ public class Api
 		return (json);
 	}
 	
+	/**
+	 * Same as fetchHostInformation() but prefer caching
+	 * fetchHostInformation() with proper parameters can also be used
+	 * API Call: analyze
+	 * 
+	 * @param	host
+	 * @param	maxAge
+	 * @param	publish
+	 * @param	ignoreMismatch
+	 * @return	JSONObject
+	 */
 	public JSONObject fetchHostInformationCached(String host, String maxAge, boolean publish, boolean ignoreMismatch)
 	{
 		return (fetchHostInformation(host, publish, false, true, maxAge, "done", ignoreMismatch));
 	}
 	
+	/**
+	 * Fetch endpoint data
+	 * API Call: getEndpointData
+	 * 
+	 * @param	host
+	 * @param	s
+	 * @param	fromCache
+	 * @return	JSONObject
+	 */
 	public JSONObject fetchEndpointData(String host, String s, boolean fromCache)
 	{
 		String jsonString;
@@ -77,6 +126,12 @@ public class Api
 		return (json);
 	}
 	
+	/**
+	 * Fetch status codes
+	 * API Call: getStatusCodes
+	 * 
+	 * @return	JSONObject
+	 */
 	public JSONObject fetchStatusCodes()
 	{
 		String jsonString;
@@ -92,6 +147,13 @@ public class Api
 		return (json);
 	}
 	
+	/**
+	 * Send custom API request and return API response
+	 * 
+	 * @param	apiCall
+	 * @param	parameters
+	 * @return	String
+	 */
 	public String sendCustomApiRequest(String apiCall, Map<String, String> parameters)
 	{
 		String jsonString = "";
@@ -105,6 +167,14 @@ public class Api
 		return (jsonString);
 	}
 	
+	/**
+	 * Sends an api request and return api response
+	 * 
+	 * @param	apiCall
+	 * @param	parameters
+	 * @return	String
+	 * @throws	IOException
+	 */
 	private String sendApiRequest(String apiCall, Map<String, String> parameters) throws IOException
 	{
 		URL url = new URL(API_URL + "/" + apiCall);
@@ -129,6 +199,12 @@ public class Api
 		return (apiResponseBuffer.toString());
 	}
 	
+	/**
+	 * Helper function to build GET parameter string
+	 * 
+	 * @param	parameters
+	 * @return	String
+	 */
 	private String buildGetParameterString(Map<String, String> parameters)
 	{
 		String getParameterString = "";
@@ -148,11 +224,22 @@ public class Api
 		return (getParameterString);
 	}
 	
+	/**
+	 * Helper function to cast boolean to on/off string
+	 * 
+	 * @param	boolean	b
+	 * @return	String on|off
+	 */
 	private String booleanToOnOffString(boolean b)
 	{
 		return (b == true) ? "on" : "off";
 	}
 	
+	/**
+	 * Getter for API_URL
+	 * 
+	 * @return	String
+	 */
 	public String getApiUrl()
 	{
 		return API_URL;
