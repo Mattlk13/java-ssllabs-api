@@ -20,6 +20,7 @@ import org.json.JSONObject;
 public class Api
 {
 	private static final String API_URL = "https://api.ssllabs.com/api/v2";
+	private static final String VERSION = "0.0.1-SNAPSHOT";
 	
 	/**
 	 * Fetch API information
@@ -240,8 +241,18 @@ public class Api
 	 * 
 	 * @return	String
 	 */
-	public String getApiUrl()
+	public static String getApiUrl()
 	{
 		return API_URL;
+	}
+	
+	/**
+	 * Getter for VERSION
+	 * 
+	 * @return	String
+	 */
+	public static String getVersion()
+	{
+		return VERSION;
 	}
 }
