@@ -3,3 +3,7 @@ language: java
 jdk:
   - openjdk7
   - oraclejdk7
+
+notifications:
+  email: false
+  irc: "chat.freenode.net#java-ssllabs-api"
