@@ -50,7 +50,7 @@ public class Console {
 	public static void handleHostInformation(String[] args)
 	{	
 		//API parameters
-		String host = arrayValueMatchRegex(args, "-h=(.+)");
+		String host = ConsoleUtilities.arrayValueMatchRegex(args, "-h=(.+)");
 		boolean publish = false;
 		boolean startNew = false;
 		boolean fromCache = false;
@@ -69,7 +69,7 @@ public class Console {
 		
 		for(String arg : possibleArguments)
 		{
-			if(arrayValueMatchRegex(args, arg) == null)
+			if(ConsoleUtilities.arrayValueMatchRegex(args, arg) == null)
 			{
 				//if argument is not in args array, continue with next possible argument
 				continue;
@@ -84,10 +84,10 @@ public class Console {
 				fromCache = true;
 				break;
 			case "-m":
-				maxAge = arrayValueMatchRegex(args, "-m=(.+)");
+				maxAge = ConsoleUtilities.arrayValueMatchRegex(args, "-m=(.+)");
 				break;
 			case "-a":
-				all = arrayValueMatchRegex(args, "-a=(.+)");
+				all = ConsoleUtilities.arrayValueMatchRegex(args, "-a=(.+)");
 				break;
 			case "-i":
 				ignoreMismatch = true;
@@ -146,29 +146,5 @@ public class Console {
 		System.out.println("");
 		System.out.println("	Example:");
 		System.out.println("	" + jarExecution + " -hi -h=https://ssllabs.com -p -c -m=\"1\"");
-	}
-	
-	public static String arrayValueMatchRegex(String[] array, String regex)
-	{
-		Pattern p = Pattern.compile(regex);
-		
-		for(int i=0; i<array.length; i++)
-		{
-			Matcher m = p.matcher(array[i]);
-			
-			while(m.find())
-			{
-				try
-				{
-					return(m.group(1));
-				}
-				catch (Exception ignored)
-				{
-					//possible IndexOutOfBoundsException
-				}
- 			}
-		}
-		
-		return null;
 	}
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,5 +79,29 @@ public class ConsoleUtilities
 		}
 		
 		return (consoleOutput);
+	}
+	
+	public static String arrayValueMatchRegex(String[] array, String regex)
+	{
+		Pattern p = Pattern.compile(regex);
+		
+		for(int i=0; i<array.length; i++)
+		{
+			Matcher m = p.matcher(array[i]);
+			
+			while(m.find())
+			{
+				try
+				{
+					return(m.group(1));
+				}
+				catch (Exception ignored)
+				{
+					//possible IndexOutOfBoundsException
+				}
+ 			}
+		}
+		
+		return null;
 	}
 }
