@@ -6,8 +6,5 @@ jdk:
   - oraclejdk8
 
 notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#java-ssllabs-api"
-    on_success: always
-    on_failure: always
+    email: false
+    irc: "chat.freenode.net#java-ssllabs-api"
